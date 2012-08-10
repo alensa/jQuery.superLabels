@@ -20,7 +20,8 @@
 		noAnimate:false, // Whether or not to animate (slide and fade) the label. If true, we'll just hide it.
 		opacity:0.5, // The opacity to fade the label to.
 		slide:true, // Whether or not to slide the label across the input field.
-		wrapSelector:false // The selector for the element you have wrapping each field.
+		wrapSelector:false, // The selector for the element you have wrapping each field.
+		charactersLimit:1 // Number of characters that has to be entered to finally hide the label
 	};
 
 	var acceptedInputTypes = ['text', 'search', 'url', 'tel', 'email', 'password', 'number'];
@@ -193,7 +194,9 @@
 		
 		var _label = _getLabel(this);
 		var _o = 0;
-		
+		if (this.value.length < defaults.charactersLimit) {
+			_o = defaults.opacity;
+		}
 		// Let's check whether there's even a need to animate anything first.
 		if ((_noVal(this) && _label.css('opacity') > 0) || (!_noVal(this) && _label.css('opacity') === 0 )) {
 			return false;
